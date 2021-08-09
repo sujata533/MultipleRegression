@@ -1,0 +1,22 @@
+from sklearn import datasets,linear_model
+import seaborn as sns
+import statsmodels.api as sm
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+
+
+
+diabetes=datasets.load_diabetes()
+dff=pd.DataFrame(diabetes.data)
+dff['target']=diabetes.target
+dff.columns=['age','sex','bmi','bp','s1','s2','s3','s4','s5','s6','target']
+
+sns.pairplot(dff)
+
+regr=linear_model.LinearRegression()
+regr.fit(np.array(diabetes.data).reshape(-1,10),np.array(diabetes.target).reshape(-1,1))
+pred=regr.predict(np.array(diabetes.data).reshape(-1,10))
+         
+regr.score(np.array(diabetes.data).reshape(-1,10),np.array(diabetes.target).reshape(-1,1))
